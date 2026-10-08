@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Gestión de Equipos</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}" />
+  </head>
+  <body>
+    <main class="contenedor">
+      <h1>Gestión de Equipos Tecnológicos</h1>
+      <p>Listado de equipos registrados</p>
+      <a class="boton-volver" th:href="@{/}"> Volver al inicio </a>
+
+      <a class="boton-principal" th:href="@{/nuevoEquipo}">
+        Registrar nuevo equipo
+      </a>
+
+      <br /><br />
+
+      <form class="buscador" th:action="@{/buscarEquipos}" method="get">
+        <label>Buscar por nombre:</label>
+        <input
+          type="text"
+          name="nombre"
+          placeholder="Ingrese nombre del equipo"
+        />
+        <button class="boton-buscar" type="submit">Buscar</button>
+
+        <a class="boton-mostrar" th:href="@{/mantenimientoEquipos}">
+          Mostrar todos
+        </a>
+      </form>
+
+      <br />
+
+      <p th:if="${#lists.isEmpty(listaEquipos)}">No se encontraron equipos.</p>
+
+      <div class="tabla-contenedor">
+        <table class="tabla-equipos">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Tipo</th>
+              <th>Marca</th>
+              <th>Número de Serie</th>
+              <th>Fecha de Registro</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr th:each="equipo : ${listaEquipos}">
+              <td th:text="${equipo.idEquipo}"></td>
+              <td th:text="${equipo.nombre}"></td>
+              <td th:text="${equipo.tipo}"></td>
+              <td th:text="${equipo.marca}"></td>
+              <td th:text="${equipo.numeroSerie}"></td>
+              <td th:text="${equipo.fechaRegistro}"></td>
+              <td>
+                <span
+                  class="estado-badge"
+                  th:classappend="${equipo.estado == 'Disponible'} ? ' estado-disponible' :
+                    (${equipo.estado == 'Asignado'} ? ' estado-asignado' :
+                    ' estado-mantenimiento')"
+                  th:text="${equipo.estado}"
+                >
+                </span>
+              </td>
+              <td>
+                <a
+                  class="boton-editar"
+                  th:href="@{/editarEquipo/{id}(id=${equipo.idEquipo})}"
+                >
+                  Editar
+                </a>
+
+                <a
+                  class="boton-eliminar"
+                  th:href="@{/eliminarEquipo/{id}(id=${equipo.idEquipo})}"
+                  onclick="
+                    return confirm('¿Está seguro de eliminar este equipo?');
+                  "
+                >
+                  Eliminar
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </body>
+</html>

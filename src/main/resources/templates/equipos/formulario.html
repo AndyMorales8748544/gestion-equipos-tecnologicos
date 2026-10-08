@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Registrar Equipo</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}" />
+  </head>
+
+  <body>
+    <main class="contenedor">
+      <h1 th:if="${equipo.idEquipo == null}">Registrar Nuevo Equipo</h1>
+      <h1 th:if="${equipo.idEquipo != null}">Editar Equipo</h1>
+
+      <form
+        class="formulario-equipo"
+        th:action="@{/guardarEquipo}"
+        th:object="${equipo}"
+        method="post"
+      >
+        <input type="hidden" th:field="*{idEquipo}" />
+
+        <div>
+          <label>Nombre:</label>
+          <input type="text" th:field="*{nombre}" required />
+        </div>
+
+        <div>
+          <label>Tipo:</label>
+          <input type="text" th:field="*{tipo}" required />
+        </div>
+
+        <div>
+          <label>Marca:</label>
+          <input type="text" th:field="*{marca}" required />
+        </div>
+
+        <div>
+          <label>Número de Serie:</label>
+          <input type="text" th:field="*{numeroSerie}" required />
+        </div>
+
+        <div>
+          <label>Fecha de Registro:</label>
+          <input type="date" th:field="*{fechaRegistro}" required />
+        </div>
+
+        <div>
+          <label>Estado:</label>
+          <select th:field="*{estado}" required>
+            <option value="">Seleccione un estado</option>
+            <option value="Disponible">Disponible</option>
+            <option value="Asignado">Asignado</option>
+            <option value="Mantenimiento">Mantenimiento</option>
+          </select>
+        </div>
+
+        <br />
+
+        <button
+          class="boton-guardar"
+          type="submit"
+          th:if="${equipo.idEquipo == null}"
+        >
+          Guardar Equipo
+        </button>
+
+        <button
+          class="boton-guardar"
+          type="submit"
+          th:if="${equipo.idEquipo != null}"
+        >
+          Actualizar Equipo
+        </button>
+
+        <a class="boton-volver" th:href="@{/mantenimientoEquipos}"> Volver </a>
+      </form>
+    </main>
+  </body>
+</html>

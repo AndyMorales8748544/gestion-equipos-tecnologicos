@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sistema de Gestión de Equipos</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}" />
+  </head>
+
+  <body>
+    <main class="contenedor inicio">
+      <span class="inicio-etiqueta">GESTIÓN TECNOLÓGICA</span>
+      <h1>Sistema de Gestión de Equipos Tecnológicos</h1>
+
+      <p>
+        Sistema para registrar, consultar y administrar los equipos
+        tecnológicos.
+      </p>
+
+      <a class="boton-principal" th:href="@{/mantenimientoEquipos}">
+        Ir a Gestión de Equipos
+      </a>
+    </main>
+  </body>
+</html>
