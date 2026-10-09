@@ -20,33 +20,43 @@
         <input type="hidden" th:field="*{idEquipo}" />
 
         <div>
-          <label>Nombre:</label>
-          <input type="text" th:field="*{nombre}" required />
+          <label for="nombre">Nombre:</label>
+          <input type="text" id="nombre" th:field="*{nombre}" required />
         </div>
 
         <div>
-          <label>Tipo:</label>
-          <input type="text" th:field="*{tipo}" required />
+          <label for="tipo">Tipo:</label>
+          <input type="text" id="tipo" th:field="*{tipo}" required />
         </div>
 
         <div>
-          <label>Marca:</label>
-          <input type="text" th:field="*{marca}" required />
+          <label for="marca">Marca:</label>
+          <input type="text" id="marca" th:field="*{marca}" required />
         </div>
 
         <div>
-          <label>Número de Serie:</label>
-          <input type="text" th:field="*{numeroSerie}" required />
+          <label for="numeroSerie">Número de Serie:</label>
+          <input
+            type="text"
+            id="numeroSerie"
+            th:field="*{numeroSerie}"
+            required
+          />
         </div>
 
         <div>
-          <label>Fecha de Registro:</label>
-          <input type="date" th:field="*{fechaRegistro}" required />
+          <label for="fechaRegistro">Fecha de Registro:</label>
+          <input
+            type="date"
+            id="fechaRegistro"
+            th:field="*{fechaRegistro}"
+            required
+          />
         </div>
 
         <div>
-          <label>Estado:</label>
-          <select th:field="*{estado}" required>
+          <label for="estado">Estado:</label>
+          <select id="estado" th:field="*{estado}" required>
             <option value="">Seleccione un estado</option>
             <option value="Disponible">Disponible</option>
             <option value="Asignado">Asignado</option>

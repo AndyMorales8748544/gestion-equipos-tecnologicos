@@ -18,9 +18,10 @@
       <br /><br />
 
       <form class="buscador" th:action="@{/buscarEquipos}" method="get">
-        <label>Buscar por nombre:</label>
+        <label for="nombre">Buscar por nombre:</label>
         <input
           type="text"
+          id="nombre"
           name="nombre"
           placeholder="Ingrese nombre del equipo"
         />
@@ -76,15 +77,15 @@
                   Editar
                 </a>
 
-                <a
-                  class="boton-eliminar"
-                  th:href="@{/eliminarEquipo/{id}(id=${equipo.idEquipo})}"
-                  onclick="
+                <form
+                  th:action="@{/eliminarEquipo/{id}(id=${equipo.idEquipo})}"
+                  method="post"
+                  onsubmit="
                     return confirm('¿Está seguro de eliminar este equipo?');
                   "
                 >
-                  Eliminar
-                </a>
+                  <button type="submit" class="boton-eliminar">Eliminar</button>
+                </form>
               </td>
             </tr>
           </tbody>

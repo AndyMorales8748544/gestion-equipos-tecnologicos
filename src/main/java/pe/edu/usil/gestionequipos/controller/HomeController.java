@@ -1,12 +1,12 @@
 package pe.edu.usil.gestionequipos.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
 
-    @RequestMapping("/") //indica que cuando entramos a http://localhost:8080/
+    @GetMapping("/") // Página principal: http://localhost:8080/
     public String index() {
         return "index";
     }
