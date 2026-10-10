@@ -10,6 +10,7 @@ public interface EquipoService {
     public List<EquipoEntity> buscarEquiposPorNombre(String nombre); // Buscar por nombre
     public EquipoEntity obtenerEquipo(Integer idEquipo); // Obtener uno por su ID
     public EquipoEntity guardarEquipo(EquipoEntity equipo); // Registrar
+    boolean existeNumeroSerieEnOtroEquipo(String numeroSerie, Integer idEquipo);
     public EquipoEntity actualizarEquipo(EquipoEntity equipo); // Actualizar
     public void eliminarEquipo(Integer idEquipo); // Eliminar
 }

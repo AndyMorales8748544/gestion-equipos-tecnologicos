@@ -471,3 +471,13 @@ body {
     transform: translateY(0);
   }
 }
+
+/* Mensajes de validación de formularios */
+.formulario-equipo .mensaje-error {
+  display: block;
+  margin-top: 7px;
+  color: #b00020;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+}

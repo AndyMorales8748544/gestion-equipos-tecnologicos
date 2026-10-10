@@ -21,17 +21,38 @@
 
         <div>
           <label for="nombre">Nombre:</label>
-          <input type="text" id="nombre" th:field="*{nombre}" required />
+          <input
+            type="text"
+            id="nombre"
+            th:field="*{nombre}"
+            maxlength="100"
+            required
+          />
+          <span
+            class="mensaje-error"
+            th:if="${#fields.hasErrors('nombre')}"
+            th:errors="*{nombre}"
+          ></span>
         </div>
 
         <div>
           <label for="tipo">Tipo:</label>
           <input type="text" id="tipo" th:field="*{tipo}" required />
+          <span
+            class="mensaje-error"
+            th:if="${#fields.hasErrors('tipo')}"
+            th:errors="*{tipo}"
+          ></span>
         </div>
 
         <div>
           <label for="marca">Marca:</label>
           <input type="text" id="marca" th:field="*{marca}" required />
+          <span
+            class="mensaje-error"
+            th:if="${#fields.hasErrors('marca')}"
+            th:errors="*{marca}"
+          ></span>
         </div>
 
         <div>
@@ -42,6 +63,11 @@
             th:field="*{numeroSerie}"
             required
           />
+          <span
+            class="mensaje-error"
+            th:if="${#fields.hasErrors('numeroSerie')}"
+            th:errors="*{numeroSerie}"
+          ></span>
         </div>
 
         <div>
@@ -52,6 +78,11 @@
             th:field="*{fechaRegistro}"
             required
           />
+          <span
+            class="mensaje-error"
+            th:if="${#fields.hasErrors('fechaRegistro')}"
+            th:errors="*{fechaRegistro}"
+          ></span>
         </div>
 
         <div>
@@ -62,6 +93,12 @@
             <option value="Asignado">Asignado</option>
             <option value="Mantenimiento">Mantenimiento</option>
           </select>
+
+          <span
+            class="mensaje-error"
+            th:if="${#fields.hasErrors('estado')}"
+            th:errors="*{estado}"
+          ></span>
         </div>
 
         <br />

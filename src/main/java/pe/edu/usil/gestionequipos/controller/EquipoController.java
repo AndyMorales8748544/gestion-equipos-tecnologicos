@@ -13,9 +13,14 @@ import pe.edu.usil.gestionequipos.service.EquipoService;
 
 import pe.edu.usil.gestionequipos.dto.EquipoDTO;
 
+import jakarta.validation.Valid;
+import org.springframework.validation.BindingResult;
+
 
 @Controller
 public class EquipoController {
+    
+    private static final String VISTA_FORMULARIO = "equipos/formulario";
     
     private final EquipoService equipoService;
 
@@ -37,14 +42,31 @@ public class EquipoController {
     public ModelAndView nuevoEquipo() {
         ModelAndView mv = new ModelAndView();
 
-        mv.setViewName("equipos/formulario");
-        mv.addObject("equipo", new EquipoEntity());
+        mv.setViewName(VISTA_FORMULARIO);
+        mv.addObject("equipo", new EquipoDTO());
 
         return mv;
     }
 
     @PostMapping("/guardarEquipo")
-    public String guardarEquipo(@ModelAttribute("equipo") EquipoDTO equipoDTO) {
+    public String guardarEquipo(@Valid @ModelAttribute("equipo") EquipoDTO equipoDTO, BindingResult resultado) {
+
+        if (resultado.hasErrors()){
+            return VISTA_FORMULARIO;
+        }
+
+        if (equipoService.existeNumeroSerieEnOtroEquipo(
+            equipoDTO.getNumeroSerie(),
+            equipoDTO.getIdEquipo())) {
+
+            resultado.rejectValue(
+                    "numeroSerie",
+                    "error.numeroSerie",
+                    "El número de serie ya está registrado en otro equipo"
+            );
+
+            return VISTA_FORMULARIO;
+        }
 
         EquipoEntity equipo = new EquipoEntity();
 
@@ -67,7 +89,17 @@ public class EquipoController {
 
         EquipoEntity equipo = equipoService.obtenerEquipo(idEquipo);
 
-        mv.setViewName("equipos/formulario");
+        EquipoDTO equipoDTO = new EquipoDTO();
+
+        equipoDTO.setIdEquipo(equipo.getIdEquipo());
+        equipoDTO.setNombre(equipo.getNombre());
+        equipoDTO.setTipo(equipo.getTipo());
+        equipoDTO.setMarca(equipo.getMarca());
+        equipoDTO.setNumeroSerie(equipo.getNumeroSerie());
+        equipoDTO.setFechaRegistro(equipo.getFechaRegistro());
+        equipoDTO.setEstado(equipo.getEstado());
+
+        mv.setViewName(VISTA_FORMULARIO);
         mv.addObject("equipo", equipo);
 
         return mv;

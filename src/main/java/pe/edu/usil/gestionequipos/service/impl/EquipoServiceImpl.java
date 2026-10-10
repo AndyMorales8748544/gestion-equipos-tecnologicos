@@ -37,6 +37,15 @@ public class EquipoServiceImpl implements EquipoService {
     }
 
     @Override
+    public boolean existeNumeroSerieEnOtroEquipo(String numeroSerie, Integer idEquipo) {
+
+        return equipoRepository.findByNumeroSerie(numeroSerie)
+                .map(equipoEncontrado ->
+                        !equipoEncontrado.getIdEquipo().equals(idEquipo))
+                .orElse(false);
+    }
+
+    @Override
     public EquipoEntity actualizarEquipo(EquipoEntity equipo) {
         return equipoRepository.save(equipo);
     }
