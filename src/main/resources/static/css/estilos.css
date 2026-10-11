@@ -481,3 +481,20 @@ body {
   font-weight: 500;
   line-height: 1.5;
 }
+
+/* Mensajes de errores generales del formulario */
+.formulario-equipo .mensaje-error-general {
+  background-color: #fff1f2;
+  border: 1px solid #f5a3ad;
+  border-left: 4px solid #b00020;
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  color: #b00020;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.formulario-equipo .mensaje-error-general p {
+  margin: 0;
+}

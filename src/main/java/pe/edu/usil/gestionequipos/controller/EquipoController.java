@@ -16,6 +16,8 @@ import pe.edu.usil.gestionequipos.dto.EquipoDTO;
 import jakarta.validation.Valid;
 import org.springframework.validation.BindingResult;
 
+import org.springframework.dao.DataIntegrityViolationException;
+
 
 @Controller
 public class EquipoController {
@@ -78,7 +80,17 @@ public class EquipoController {
         equipo.setFechaRegistro(equipoDTO.getFechaRegistro());
         equipo.setEstado(equipoDTO.getEstado());
 
-        equipoService.guardarEquipo(equipo);
+        try {
+            equipoService.guardarEquipo(equipo);
+        } catch (DataIntegrityViolationException _) {
+
+            resultado.reject(
+                "error.integridad",
+                "No se pudo guardar el equipo porque algunos datos incumplen las restricciones de la base de datos."
+            );
+
+            return VISTA_FORMULARIO;
+        }
 
         return "redirect:/mantenimientoEquipos";
     }
@@ -100,7 +112,7 @@ public class EquipoController {
         equipoDTO.setEstado(equipo.getEstado());
 
         mv.setViewName(VISTA_FORMULARIO);
-        mv.addObject("equipo", equipo);
+        mv.addObject("equipo", equipoDTO);
 
         return mv;
     }

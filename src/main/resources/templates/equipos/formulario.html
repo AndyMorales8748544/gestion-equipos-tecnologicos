@@ -16,7 +16,12 @@
         th:action="@{/guardarEquipo}"
         th:object="${equipo}"
         method="post"
+        novalidate
       >
+        <div class="mensaje-error-general" th:if="${#fields.hasGlobalErrors()}">
+          <p th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p>
+        </div>
+
         <input type="hidden" th:field="*{idEquipo}" />
 
         <div>

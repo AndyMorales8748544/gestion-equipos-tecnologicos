@@ -36,7 +36,7 @@ public class EquipoEntity {
     @Column(name = "marca")
     private String marca;
 
-    @Column(name = "numero_serie")
+    @Column(name = "numero_serie", unique = true)
     private String numeroSerie;
 
     @Column(name = "fecha_registro")
