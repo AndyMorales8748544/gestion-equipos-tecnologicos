@@ -23,6 +23,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 public class EquipoController {
     
     private static final String VISTA_FORMULARIO = "equipos/formulario";
+
+    private static final String REDIRECT_MANTENIMIENTO_EQUIPOS = "redirect:/mantenimientoEquipos";
     
     private final EquipoService equipoService;
 
@@ -92,7 +94,7 @@ public class EquipoController {
             return VISTA_FORMULARIO;
         }
 
-        return "redirect:/mantenimientoEquipos";
+        return REDIRECT_MANTENIMIENTO_EQUIPOS;
     }
 
     @GetMapping("/editarEquipo/{id}")
@@ -100,6 +102,10 @@ public class EquipoController {
         ModelAndView mv = new ModelAndView();
 
         EquipoEntity equipo = equipoService.obtenerEquipo(idEquipo);
+
+        if (equipo == null) {
+            return new ModelAndView(REDIRECT_MANTENIMIENTO_EQUIPOS);
+        }
 
         EquipoDTO equipoDTO = new EquipoDTO();
 
@@ -122,7 +128,7 @@ public class EquipoController {
 
         equipoService.eliminarEquipo(idEquipo);
 
-        return "redirect:/mantenimientoEquipos";
+        return REDIRECT_MANTENIMIENTO_EQUIPOS;
     }
 
     @GetMapping("/buscarEquipos")
