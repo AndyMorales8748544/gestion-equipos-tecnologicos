@@ -27,13 +27,13 @@ jobs:
           cache: "maven"
 
       - name: Compilar, ejecutar pruebas y generar cobertura
-        run: mvn -B "-Dtest=EquipoServiceImplTest" clean verify
+        run: mvn -B "-Dtest=EquipoServiceImplTest,EquipoControllerTest" clean verify
 
       - name: Analizar codigo con SonarQube Cloud
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: >
-          mvn -B "-Dtest=EquipoServiceImplTest"
+          mvn -B
           org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
           -Dsonar.projectKey=AndyMorales8748544_gestion-equipos-tecnologicos
           -Dsonar.organization=andymorales8748544
