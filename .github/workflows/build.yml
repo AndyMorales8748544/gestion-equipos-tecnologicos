@@ -56,7 +56,7 @@ jobs:
       - name: Compilar, ejecutar pruebas y generar cobertura
         env:
           SPRING_DATASOURCE_PASSWORD: root
-        run: mvn -B "-Dtest=EquipoServiceImplTest,EquipoControllerTest,EquipoRepositoryTest,GestionEquiposApplicationTests" clean verify
+        run: mvn -B "-Dtest=EquipoServiceImplTest,EquipoControllerTest,EquipoRepositoryTest,GestionEquiposApplicationTests,HomeControllerTest" clean verify
 
       - name: Analizar codigo con SonarQube Cloud
         env:
