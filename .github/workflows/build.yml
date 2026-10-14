@@ -12,6 +12,19 @@ jobs:
   build:
     name: Compilar y ejecutar pruebas
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: gestion_equipos_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -proot"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
 
     steps:
       - name: Descargar codigo del repositorio
@@ -26,8 +39,24 @@ jobs:
           java-version: "25"
           cache: "maven"
 
+      - name: Crear tabla de pruebas en MySQL
+        run: |
+          mysql -h 127.0.0.1 -P 3306 -u root -proot gestion_equipos_test <<'SQL'
+          CREATE TABLE IF NOT EXISTS equipo (
+              id INT AUTO_INCREMENT PRIMARY KEY,
+              nombre VARCHAR(100) NOT NULL,
+              tipo VARCHAR(50) NOT NULL,
+              marca VARCHAR(50) NOT NULL,
+              numero_serie VARCHAR(100) NOT NULL UNIQUE,
+              fecha_registro DATE NOT NULL,
+              estado VARCHAR(30) NOT NULL
+          );
+          SQL
+
       - name: Compilar, ejecutar pruebas y generar cobertura
-        run: mvn -B "-Dtest=EquipoServiceImplTest,EquipoControllerTest" clean verify
+        env:
+          SPRING_DATASOURCE_PASSWORD: root
+        run: mvn -B "-Dtest=EquipoServiceImplTest,EquipoControllerTest,EquipoRepositoryTest,GestionEquiposApplicationTests" clean verify
 
       - name: Analizar codigo con SonarQube Cloud
         env:
